@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Bare - Start Bootstrap Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="vendor/bootstrap/scss/creditScore.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Credit Scoreboard-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+    <style>
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="row">
+
+        <!--        신용등급-->
+        <div class="container">
+            <div class="row">
+                <div class="sixteen columns">
+                    <h2>날짜 <small id="date"></small></h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="sixteen columns text-center score-announcement">
+                    <!-- This is an instance where we need the actual credit score and the page will animate the number growing to the specified amount in the data attribute. -->
+                    <h1 data-animate="count-out" data-value="3" id="score-actual">0</h1>
+                    <p class="score-comment"> 신용등급  </p>
+                </div>
+        
+            </div>
+        </div>
+
+
+        <!--        신용등급-->
+
+
+        <canvas id="myChart"></canvas>
+
+        <canvas id="bar-chart-grouped" width="800" height="450"></canvas>
+
+
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.slim.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!--금리결과 확인-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+<!-- Credit Scoreboard-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!--금리결과확인용-->
+<script>
+    var a
+    var ggg
+    var interestRate
+    $.ajax({
+        url : 'http://localhost:5000/request2',
+        type : 'POST',                              
+        dataType : 'json',
+        success : function(result){
+            console.log(result)
+            ggg=result //리스트
+            console.log(a)
+            interestRate = { //데이터 넣어주는 부분
+                labels: [ggg.bank[0]+"("+ggg.rate[0]+")", ggg.bank[1]+"("+ggg.rate[1]+")" , ggg.bank[2]+"("+ggg.rate[2]+")", ggg.bank[3]+"("+ggg.rate[3]+")", ggg.bank[4]+"("+ggg.rate[4]+")",
+                ggg.bank[5]+"("+ggg.rate[5]+")", ggg.bank[6]+"("+ggg.rate[6]+")", ggg.bank[7]+"("+ggg.rate[7]+")", ggg.bank[8] +"("+ggg.rate[8]+")"],
+                data: [ggg.rate[0],ggg.rate[1],ggg.rate[2],ggg.rate[3], ggg.rate[4],ggg.rate[5], ggg.rate[6], ggg.rate[7],ggg.rate[8]]
+    }
+
+
+    var ctx = document.getElementById("myChart").getContext('2d');
+
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: interestRate.labels,
+        datasets: [{
+            label: "percent",
+            data: interestRate.data,
+            backgroundColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 159, 64, 1)',
+            ],
+        }]
+    },
+    options: {
+        maintainAspectRatio: true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+})
+
+        },
+        error : function(xtr,status,error){
+            alert(2);
+                //alert(xtr +":"+status+":"+error);
+        }     
+    });
+
+
+
+    //  interestRate = {
+    //     labels: [ggg.bank[0], "신한", "우리", "농협은행주식회사", "한국카카오은행주식회사",
+    //         "국민은행", "하나은행", "수협은행", "중소기업은행", "부산은행", "대구은행", "광주은행"
+    //         , "한국스탠다드차타드은행", "한국씨티은행", "한국산업은행", "주식회사 케이뱅크은행"],
+    //     data: [1.1, 19, 3, 5, 2, 3, 2, 1, 3, 4, 5, 6, 4, 3, 2, 5]
+    // }
+
+
+   
+</script>
+
+
+<!--오늘 날짜-->
+<script>
+    let today = new Date();
+
+    let month = today.getMonth() + 1; // 월
+    let date = today.getDate();  // 일
+
+    $("#date").html(month + "월 " + date + "일")
+
+</script>
+
+<!--creditScore-->
+<script src="vendor/bootstrap/js/creditScore.js"></script>
+
+<script>
+
+
+</script>
+
+</body>
+
+</html>

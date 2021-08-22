@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
+<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+     $("#button").click(function (){
+  	 $("#openhide").toggle();  
+    });
+   });
+  //$("#a").html("abc");
+  
+  //월 이자액
+  $.ajax({
+          type: 'POST',
+          url: 'http://localhost:5000/public2',
+          // data : {
+          //        SensorID:text_data                     
+          // },
+          dataType: 'json',
+          success: function (result) {
+              
+              obj2 = result
+              $('#month2year').html(obj2);
+              console.log(obj2)
+          }
+        });
+
+  //평균 대출금액      
+  $.ajax({
+          type: 'POST',
+          url: 'http://localhost:5000/public',
+          // data : {
+          //        SensorID:text_data                     
+          // },
+          dataType: 'json',
+          success: function (result) {
+              
+              obj = result
+              hum = ""
+              $('#month3year').html(obj);
+              $('#mention').html(hum);
+              console.log(obj)
+          }
+    });
+
+
+  
+     
+</script>
+
+<body>
+<!-- 
+<div class='row'>
+   <div class='col-md-12 text-center'>
+
+    <div class="col">
+    </div>
+
+    <div class="col-8"> -->
+      <div class="jumbotron">
+        <p class="display-4" style="font-size: 2rem; font-weight: bold;">소상공인 2차 금융지원 대출 프로그램</p>
+          <p class="lead">
+            <!--시중은행의 보증부 대출 금리를 기준으로 적용(3 ~ 4%)<br>
+            95% 보증을 통해 중, 저신용 등급에 중점 지원을 목표하고 있습니다.<br><br>--> 
+            <span id="mention" style="color:red;">계산중입니다. 잠시만 기다려주세요!!!!!!!</span><br>
+            [결과 확인하기]<br>
+            거치기간 2년 동안, 월 <span id="aa" style="color:red;"><span id="month2year"></span></span>원을 갚으시면 됩니다. <br> 
+            이 후 월 평균 <span style="color:red;"><span id='month3year'></span></span>원을 3년 동안 갚으시면 됩니다. 감사합니다.
+          </p>
+
+        <hr class="my-4">
+          <p>[상환방법]<br>
+            - 2년 거치기간<br>
+            - 3년 원금균등분할상환<br><br>
+            
+            * 건당 1,000만원의 대출이 가능하며, 중도상환해약금은 없습니다.<br>
+            * 본 대출은 만기 5년으로, 2년의 거치기간(이자만 납부하는 기간)이 존재합니다.<br>
+            * 보증수수료는 이자에 포함되지 않아 별도로 부과됩니다.<br>
+            * 최종 최저대출금리는 신용등급 심사결과에 따라 달라질 수 있습니다.<br><br>
+          </p>
+
+          
+        <p class="lead">
+          <a class="btn btn-primary btn-lg" href="#" role="button" id="button">자세한 내용보기</a>
+        </p>
+          
+        <hr class="my-4">
+        <div id="openhide" style="display:none;">
+          <p>
+            [소상공인2차 대출 준비서류]<br>
+            사업자 등록증<br>
+            부가세과세표준 증명원<br>
+            국세, 지방세 납세 증명원<br>
+            임대차계약서<br>
+            소득금액증명원<br><br>
+
+            [신청방법]<br>
+            * 국민‧농협‧신한‧우리‧하나‧기업‧대구은행 전 지점에서 대출, 보증 신청이 가능합니다.<br>
+            * 국민‧농협‧신한‧우리‧하나은행의 경우, '홈페이지'로 신청과 접수가 가능합니다.<br>
+            * 대구은행을 제외한 부산‧경남‧광주‧전북‧제주 등 지방은행은 전산 시스템 구축이 완료되는<br>
+            6월 중순 이후부터 소상공인 2차 금융지원 대출을 받을 수 있습니다.<br>
+            * 대출, 보증심사는 5월 25일(월)부터 시작되고, 5월말부터 순차적으로 자금을 수령할 수 있습니다.<br>
+          </p>
+        </div>
+
+      </div>
+    <!-- </div>
+
+    <div class="col">
+   
+    </div>
+
+</div> -->
+<!--
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+-->
+
+
+</body>
+</html>
